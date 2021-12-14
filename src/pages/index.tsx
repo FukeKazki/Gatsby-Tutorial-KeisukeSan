@@ -6,17 +6,27 @@ const IndexPage = ({ data }: PageProps<GatsbyTypes.TopPageQuery>) => {
   return (
     <main>
       <p>hello gatsby</p>
-      {JSON.stringify(data)}
+      <ul>
+          {data.allMicrocmsBlogs.edges.map(({ node }) => (
+              <li key={node.id}>
+                  {node?.title && <p>{node.title}</p>}
+                  {node?.body && <p dangerouslySetInnerHTML={{ __html: node.body }} />}
+              </li>
+          ))}
+      </ul>
     </main>
   )
 }
 
 export const query = graphql`
   query TopPage {
-    site {
-      siteMetadata {
-        siteUrl
-        title
+    allMicrocmsBlogs {
+      edges {
+        node {
+          title
+          body
+          id
+        }
       }
     }
   }
