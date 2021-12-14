@@ -11,7 +11,6 @@ const IndexPage = ({ data }: PageProps<GatsbyTypes.TopPageQuery>) => {
               <li key={node.blogsId}>
                   <Link to={node.blogsId ?? "/"}>
                       {node?.title && <p>{node.title}</p>}
-                      {node?.body && <p dangerouslySetInnerHTML={{ __html: node.body }} />}
                   </Link>
               </li>
           ))}
