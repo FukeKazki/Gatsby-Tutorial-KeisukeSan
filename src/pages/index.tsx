@@ -1,8 +1,8 @@
 import * as React from "react"
-import {graphql} from "gatsby";
+import {graphql, PageProps} from "gatsby";
 
 // markup
-const IndexPage = ({ data }: any) => {
+const IndexPage = ({ data }: PageProps<GatsbyTypes.TopPageQuery>) => {
   return (
     <main>
       <p>hello gatsby</p>
@@ -12,7 +12,7 @@ const IndexPage = ({ data }: any) => {
 }
 
 export const query = graphql`
-  {
+  query TopPage {
     site {
       siteMetadata {
         siteUrl
