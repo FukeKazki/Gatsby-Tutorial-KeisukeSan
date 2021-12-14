@@ -1,5 +1,5 @@
 import * as React from "react"
-import {graphql, PageProps} from "gatsby";
+import {graphql, PageProps, Link} from "gatsby";
 
 // markup
 const IndexPage = ({ data }: PageProps<GatsbyTypes.TopPageQuery>) => {
@@ -9,8 +9,10 @@ const IndexPage = ({ data }: PageProps<GatsbyTypes.TopPageQuery>) => {
       <ul>
           {data.allMicrocmsBlogs.edges.map(({ node }) => (
               <li key={node.blogsId}>
-                  {node?.title && <p>{node.title}</p>}
-                  {node?.body && <p dangerouslySetInnerHTML={{ __html: node.body }} />}
+                  <Link to={node.blogsId ?? "/"}>
+                      {node?.title && <p>{node.title}</p>}
+                      {node?.body && <p dangerouslySetInnerHTML={{ __html: node.body }} />}
+                  </Link>
               </li>
           ))}
       </ul>
