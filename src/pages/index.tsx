@@ -1,8 +1,9 @@
 import * as React from "react"
-import {graphql, PageProps} from "gatsby";
 import {StaticImage} from "gatsby-plugin-image";
 import { Card } from "../components/Card";
 import {css} from "@emotion/react";
+import { useMellowContents } from "../hooks/useMellowContents";
+import { useRecommendContents } from "../hooks/useRecommendContents";
 
 const container = css`
   max-width: 900px;
@@ -15,7 +16,10 @@ const grid = css`
   gap: 40px;
 `
 
-const IndexPage = ({ data }: PageProps<GatsbyTypes.TopPageQuery>) => {
+const IndexPage = () => {
+  const mellows = useMellowContents()
+  const recommends = useRecommendContents()
+
   return (
     <main css={container}>
       <p>hello gatsby</p>
@@ -25,8 +29,22 @@ const IndexPage = ({ data }: PageProps<GatsbyTypes.TopPageQuery>) => {
           width={100}
           height={100}
       />
+      <h2>しっとり</h2>
       <ul css={grid}>
-          {data.allMicrocmsBlogs.edges.map(({ node }) => (
+          {mellows.map(({ node }) => (
+              <li key={node.blogsId}>
+                  <Card
+                      title={node?.title ?? ""}
+                      src={node?.thumbnail?.url ?? ""}
+                      to={node.blogsId ?? "/"}
+                  />
+              </li>
+          ))}
+      </ul>
+
+      <h2>おすすめ</h2>
+      <ul css={grid}>
+          {recommends.map(({ node }) => (
               <li key={node.blogsId}>
                   <Card
                       title={node?.title ?? ""}
@@ -39,22 +57,5 @@ const IndexPage = ({ data }: PageProps<GatsbyTypes.TopPageQuery>) => {
     </main>
   )
 }
-
-export const query = graphql`
-  query TopPage {
-    allMicrocmsBlogs {
-      edges {
-        node {
-          title
-          body
-          blogsId
-          thumbnail {
-            url
-          }
-        }
-      }
-    }
-  }
-`
 
 export default IndexPage
