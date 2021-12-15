@@ -12,6 +12,6 @@
     "noEmit": true,
     "skipLibCheck": true,
     "moduleResolution": "node",
-    "jsxImportSource": "@emotion/react"
+    "types": ["@emotion/react/types/css-prop"]
   }
 }
