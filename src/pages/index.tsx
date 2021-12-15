@@ -1,11 +1,23 @@
 import * as React from "react"
-import {graphql, PageProps, Link} from "gatsby";
+import {graphql, PageProps} from "gatsby";
 import {StaticImage} from "gatsby-plugin-image";
+import { Card } from "../components/Card";
+import {css} from "@emotion/react";
 
-// markup
+const container = css`
+  max-width: 900px;
+  margin: 0 auto;
+`
+
+const grid = css`
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px;
+`
+
 const IndexPage = ({ data }: PageProps<GatsbyTypes.TopPageQuery>) => {
   return (
-    <main>
+    <main css={container}>
       <p>hello gatsby</p>
       <StaticImage
           src={"../images/hacktyu.png"}
@@ -13,12 +25,14 @@ const IndexPage = ({ data }: PageProps<GatsbyTypes.TopPageQuery>) => {
           width={100}
           height={100}
       />
-      <ul>
+      <ul css={grid}>
           {data.allMicrocmsBlogs.edges.map(({ node }) => (
               <li key={node.blogsId}>
-                  <Link to={node.blogsId ?? "/"}>
-                      {node?.title && <p>{node.title}</p>}
-                  </Link>
+                  <Card
+                      title={node?.title ?? ""}
+                      src={node?.thumbnail?.url ?? ""}
+                      to={node.blogsId ?? "/"}
+                  />
               </li>
           ))}
       </ul>
@@ -34,6 +48,9 @@ export const query = graphql`
           title
           body
           blogsId
+          thumbnail {
+            url
+          }
         }
       }
     }
