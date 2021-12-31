@@ -1,3 +1,7 @@
+require("dotenv").config({
+    path: `.env.${process.env.NODE_ENV}`
+})
+
 module.exports = {
   siteMetadata: {
     siteUrl: "https://www.yourdomain.tld",
@@ -17,7 +21,7 @@ module.exports = {
       {
           resolve: 'gatsby-source-microcms',
           options: {
-              apiKey: '',
+              apiKey: process.env.MICROCMS_API_KEY,
               serviceId: 'keisukesan',
               apis: [
                   {
