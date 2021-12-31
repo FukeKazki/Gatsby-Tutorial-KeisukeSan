@@ -1,10 +1,11 @@
-import * as React from "react";
-import {graphql, useStaticQuery} from "gatsby";
+import { graphql, useStaticQuery } from "gatsby";
 
 export const useMellowContents = () => {
-    const { mellows } = useStaticQuery<GatsbyTypes.useMellowQuery>(graphql`
+  const { mellows } = useStaticQuery<GatsbyTypes.useMellowQuery>(graphql`
     query useMellow {
-      mellows: allMicrocmsBlogs(filter: {category: {id: {eq: "mellow"}}}) {
+      mellows: allMicrocmsBlogs(
+        filter: { category: { id: { eq: "mellow" } } }
+      ) {
         edges {
           node {
             title
@@ -21,7 +22,7 @@ export const useMellowContents = () => {
         }
       }
     }
-   `)
+  `);
 
-    return mellows.edges
-}
+  return mellows.edges;
+};

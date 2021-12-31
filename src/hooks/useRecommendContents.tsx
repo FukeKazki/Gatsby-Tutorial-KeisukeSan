@@ -1,10 +1,11 @@
-import * as React from "react";
-import {graphql, useStaticQuery} from "gatsby";
+import { graphql, useStaticQuery } from "gatsby";
 
 export const useRecommendContents = () => {
-    const { recommends } = useStaticQuery<GatsbyTypes.useRecommendQuery>(graphql`
+  const { recommends } = useStaticQuery<GatsbyTypes.useRecommendQuery>(graphql`
     query useRecommend {
-      recommends: allMicrocmsBlogs(filter: {category: {id: {eq: "recommend"}}}) {
+      recommends: allMicrocmsBlogs(
+        filter: { category: { id: { eq: "recommend" } } }
+      ) {
         edges {
           node {
             title
@@ -21,7 +22,7 @@ export const useRecommendContents = () => {
         }
       }
     }
-   `)
+  `);
 
-    return recommends.edges
-}
+  return recommends.edges;
+};
