@@ -3,3 +3,4 @@ node_modules/
 public
 __generated__
 /.env.development
+/gatsby.graphql
